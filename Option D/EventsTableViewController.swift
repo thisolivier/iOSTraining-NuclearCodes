@@ -20,12 +20,12 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /*************/
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var sectionEvents = [[EventEntity](),[EventEntity]()]
-    func loadEvents(){
+    func loadEvents(reload:Bool = true){
         let eventRequestFu = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
         let eventRequestPa = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
         let pastPredicate = NSPredicate(format: "completed == %@", true as CVarArg)
         let futurePredicate = NSPredicate(format: "completed == %@", false as CVarArg)
-        let dateSortDescriptor = NSSortDescriptor(key: "time", ascending: false)
+        let dateSortDescriptor = NSSortDescriptor(key: "time", ascending: true)
         eventRequestFu.predicate = futurePredicate
         eventRequestFu.sortDescriptors = [dateSortDescriptor]
         eventRequestPa.predicate = pastPredicate
@@ -37,7 +37,9 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
             sectionEvents[1] = resultsPa
             //print ("-----------")
             print ("Event entities have been reloaded")
-            self.tableView.reloadData()
+            if reload {
+                self.tableView.reloadData()
+            }
             //print(sectionEvents)
             //print ("-----------")
         } catch {
@@ -45,12 +47,14 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
             print(error)
         }
     }
-    func attemptSave(){
+    func attemptSave(reload:Bool = true){
         if context.hasChanges{
             do{
                 try context.save()
                 print ("Saved successfully using attemptSave")
-                loadEvents()
+                if reload {
+                    loadEvents()
+                }
             } catch {
                 print ("Failed to save using attemptSave")
                 print (error)
@@ -72,10 +76,7 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     
     // Set number of cells per section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return sectionEvents[section].count
-        }
-        return 3
+        return sectionEvents[section].count
     }
     
     // Make cells
@@ -83,12 +84,17 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
         if indexPath[0] == 0 {
             if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell"){
                 let currentEntity = sectionEvents[0][indexPath[1]]
+                let timeString = helperMakeTime(from: currentEntity.time!)
                 newCell.textLabel?.text = currentEntity.name
+                newCell.detailTextLabel?.text = timeString
                 return newCell
             }
-        } else {
+        } else if indexPath[0] == 1 {
             if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "completedEventCell"){
-                newCell.textLabel?.text = "At path \(indexPath)"
+                let currentEntity = sectionEvents[1][indexPath[1]]
+                let timeString = helperMakeTime(from: currentEntity.time!)
+                newCell.textLabel?.text = currentEntity.name
+                newCell.detailTextLabel?.text = timeString
                 return newCell
             }
         }
@@ -96,12 +102,46 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
         return super.tableView(tableView, cellForRowAt: indexPath)
     }
     
+    func helperMakeTime(from date:Date) -> String{
+        let formatObject = DateFormatter()
+        formatObject.locale = Locale.current
+        formatObject.setLocalizedDateFormatFromTemplate("HH:mm")
+        return formatObject.string(from: date)
+    }
+    
     // Make cells delete-able. Edit style set when making cells.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    // Pretty formatting
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let theHeader = view as? UITableViewHeaderFooterView {
+            theHeader.textLabel?.textColor = UIColor.white
+            if section == 0 {
+                theHeader.backgroundView?.backgroundColor = UIColor.orange
+            } else {
+                theHeader.backgroundView?.backgroundColor = UIColor.darkGray
+            }
+        }
+    }
+    
+    /**********************/
+    /* Table interactions */
+    /**********************/
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentEntity = sectionEvents[indexPath[0]][indexPath[1]]
+        currentEntity.completed = currentEntity.completed ? false : true
+        attemptSave()
+        //self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        //self.tableView.reloadData()
+    }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        // We know all cells only have delete, so we can assume we should be deleting
+        let currentEntity = sectionEvents[indexPath[0]].remove(at: indexPath[1])
+        tableView.deleteRows(at: [indexPath], with: .right)
+        self.context.delete(currentEntity)
+        attemptSave(reload: false)
     }
     
     /******************/
