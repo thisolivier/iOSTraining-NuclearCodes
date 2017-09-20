@@ -7,11 +7,51 @@
 //
 
 import UIKit
+import CoreData
 
 class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    /***************/
+    /* Build table */
+    /***************/
+    
+    
+    // Set number of sections and title
+    let sections = ["Coming Up","In The Past"]
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section]
+    }
+    
+    // Set number of cells per section
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 2
+        }
+        return 3
+    }
+    
+    // Make cells
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell"){
+            newCell.textLabel?.text = "At path \(indexPath)"
+            return newCell
+        }
+        return super.tableView(tableView, cellForRowAt: indexPath)
+    }
+    
+    // Make cells delete-able. Edit style set when making cells.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        // We know all cells only have delete, so we can assume we should be deleting
     }
     
     /******************/
