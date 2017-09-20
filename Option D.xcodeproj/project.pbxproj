@@ -15,6 +15,7 @@
 		092E8B051F72DE0D00AB6DA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 092E8B031F72DE0D00AB6DA8 /* LaunchScreen.storyboard */; };
 		092E8B101F72DE0D00AB6DA8 /* Option_DTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E8B0F1F72DE0D00AB6DA8 /* Option_DTests.swift */; };
 		092E8B1B1F72DE0D00AB6DA8 /* Option_DUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E8B1A1F72DE0D00AB6DA8 /* Option_DUITests.swift */; };
+		092E8B291F72E23300AB6DA8 /* EditEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092E8B281F72E23300AB6DA8 /* EditEventViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		092E8B161F72DE0D00AB6DA8 /* Option DUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Option DUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		092E8B1A1F72DE0D00AB6DA8 /* Option_DUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Option_DUITests.swift; sourceTree = "<group>"; };
 		092E8B1C1F72DE0D00AB6DA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		092E8B281F72E23300AB6DA8 /* EditEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				092E8AF71F72DE0D00AB6DA8 /* AppDelegate.swift */,
 				092E8AF91F72DE0D00AB6DA8 /* EventsTableViewController.swift */,
+				092E8B281F72E23300AB6DA8 /* EditEventViewController.swift */,
 				092E8AFB1F72DE0D00AB6DA8 /* Main.storyboard */,
 				092E8B011F72DE0D00AB6DA8 /* Assets.xcassets */,
 				092E8B031F72DE0D00AB6DA8 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 				092E8AFA1F72DE0D00AB6DA8 /* EventsTableViewController.swift in Sources */,
 				092E8B001F72DE0D00AB6DA8 /* Option_D.xcdatamodeld in Sources */,
 				092E8AF81F72DE0D00AB6DA8 /* AppDelegate.swift in Sources */,
+				092E8B291F72E23300AB6DA8 /* EditEventViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
