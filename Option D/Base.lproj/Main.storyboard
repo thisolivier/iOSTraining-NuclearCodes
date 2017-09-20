@@ -107,9 +107,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" priority="800" constant="128" id="Db8-xA-V8b"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <string key="text">Add details/notes about your event here. For example, how many people are you going with? Do you need to bring tickets? So on and so forth... have fun whatever you're doing...</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYX-nc-xE1">
                                 <rect key="frame" x="16" y="427" width="343" height="30"/>
@@ -126,8 +126,16 @@
                                     <constraint firstAttribute="height" constant="44" id="SeT-1k-wZt"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Save" id="8gW-VF-rBi"/>
-                                    <barButtonItem title="Cancel" id="4Hu-Kx-7MG"/>
+                                    <barButtonItem title="Save" id="8gW-VF-rBi">
+                                        <connections>
+                                            <action selector="saveButtonPressed:" destination="koT-gz-YPH" id="zy5-eW-wci"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Cancel" id="4Hu-Kx-7MG">
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="koT-gz-YPH" id="zdd-IG-c0O"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
@@ -162,6 +170,11 @@
                     <navigationItem key="navigationItem" title="Add Event" id="MDi-iY-kvy">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Hn4-v8-Jum"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="detailsTextView" destination="Zfv-gq-h7U" id="w59-uo-lyM"/>
+                        <outlet property="timePicket" destination="5vK-hA-LCG" id="Bj7-OL-0Ip"/>
+                        <outlet property="titleLabel" destination="xl6-fp-7LN" id="Iw0-Yi-3fB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fPA-19-jxX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
