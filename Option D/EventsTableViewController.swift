@@ -8,8 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class EventsTableViewController: UITableViewController {
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        // Send on add string
+        performSegue(withIdentifier: "addEventSegue", sender: "add")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (sender as! String) == "add" {
+            print ("Adding")
+        } else {
+            print ("Default segue setup")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
