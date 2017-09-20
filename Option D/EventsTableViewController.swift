@@ -13,12 +13,33 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        loadEvents()
+    }
+    
+    /*************/
+    /* Core Data */
+    /*************/
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var sectionEvents = [[EventEntity]]()
+    func loadEvents(){
+        let eventRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
+        // let pastPredicate = NSPredicate(format: "completed == %@", true as CVarArg)
+        let futurePredicate = NSPredicate(format: "completed == %@", false as CVarArg)
+        let dateSortDescriptor = NSSortDescriptor(key: "time", ascending: false)
+        eventRequest.predicate = futurePredicate
+        eventRequest.sortDescriptors = [dateSortDescriptor]
+        do {
+            let results = try (context.fetch(eventRequest) as! [EventEntity])
+            sectionEvents.append(results)
+        } catch {
+            print("Failed to fetch events")
+            print(error)
+        }
     }
     
     /***************/
     /* Build table */
     /***************/
-    
     
     // Set number of sections and title
     let sections = ["Coming Up","In The Past"]
