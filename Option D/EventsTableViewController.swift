@@ -12,7 +12,6 @@ import CoreData
 class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         loadEvents()
     }
     
@@ -40,7 +39,6 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /***************/
     /* Build table */
     /***************/
-    
     // Set number of sections and title
     let sections = ["Coming Up","In The Past"]
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -97,7 +95,6 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /**************/
     /* Delegation */
     /**************/
- 
      func saveEvent() {
         print("saveEvent Triggered from stack, handled by delegate")
      }
@@ -105,7 +102,5 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
      func cancelEditEvent() {
         print("The cancel edit event Triggered from stack, handled by delegate")
      }
-
-
 }
 
