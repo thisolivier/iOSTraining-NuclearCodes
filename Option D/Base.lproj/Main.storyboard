@@ -108,6 +108,7 @@
                                     <constraint firstAttribute="height" priority="800" constant="128" id="Db8-xA-V8b"/>
                                 </constraints>
                                 <string key="text">Add details/notes about your event here. For example, how many people are you going with? Do you need to bring tickets? So on and so forth... have fun whatever you're doing...</string>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                             </textView>

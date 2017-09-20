@@ -115,12 +115,18 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? EditEventViewController{
             destination.delegate = self
-            if (sender as! String) == "add" {
+            if let _ = sender as? String {
                 print ("Adding")
-            } else {
-                print ("Default segue setup")
+            } else if let originalEntity = sender as? EventEntity {
+                destination.originalEventEntity = originalEntity
             }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        print("Accessory tapped")
+        let currentEntity = sectionEvents[0][indexPath[1]]
+        performSegue(withIdentifier: "addEventSegue", sender: currentEntity)
     }
     
     /**************/
