@@ -15,7 +15,7 @@ class EditEventViewController: UIViewController{
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let _ = delegate {
-            delegate!.saveEvent()
+            delegate!.saveEvent(sender: self)
         }
     }
     
@@ -30,6 +30,6 @@ class EditEventViewController: UIViewController{
 
 protocol EditEventViewDelegate {
     // still need to build this out
-    func saveEvent()
+    func saveEvent(sender: EditEventViewController)
     func cancelEditEvent()
 }

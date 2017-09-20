@@ -95,12 +95,13 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /**************/
     /* Delegation */
     /**************/
-     func saveEvent() {
+    func saveEvent(sender: EditEventViewController) {
         print("saveEvent Triggered from stack, handled by delegate")
-     }
+    }
  
-     func cancelEditEvent() {
+    func cancelEditEvent() {
         print("The cancel edit event Triggered from stack, handled by delegate")
-     }
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
