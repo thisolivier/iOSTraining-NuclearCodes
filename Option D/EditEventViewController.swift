@@ -11,7 +11,7 @@ import UIKit
 class EditEventViewController: UIViewController{
     @IBOutlet weak var titleLabel: UITextField!
     @IBOutlet weak var detailsTextView: UITextView!
-    @IBOutlet weak var timePicket: UIDatePicker!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if let _ = delegate {
@@ -26,6 +26,7 @@ class EditEventViewController: UIViewController{
     }
     
     var delegate: EventsTableViewController?
+    var originalEventEntity: EventEntity?
 }
 
 protocol EditEventViewDelegate {

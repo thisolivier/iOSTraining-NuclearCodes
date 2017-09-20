@@ -26,7 +26,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCellCompleted" id="1pe-mb-PU8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="completedEventCell" id="1pe-mb-PU8">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1pe-mb-PU8" id="6zS-x8-XIA">
@@ -171,8 +171,8 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="Hn4-v8-Jum"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="5vK-hA-LCG" id="exP-RP-mxU"/>
                         <outlet property="detailsTextView" destination="Zfv-gq-h7U" id="w59-uo-lyM"/>
-                        <outlet property="timePicket" destination="5vK-hA-LCG" id="Bj7-OL-0Ip"/>
                         <outlet property="titleLabel" destination="xl6-fp-7LN" id="Iw0-Yi-3fB"/>
                     </connections>
                 </viewController>

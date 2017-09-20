@@ -19,20 +19,42 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /* Core Data */
     /*************/
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var sectionEvents = [[EventEntity]]()
+    var sectionEvents = [[EventEntity](),[EventEntity]()]
     func loadEvents(){
-        let eventRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
-        // let pastPredicate = NSPredicate(format: "completed == %@", true as CVarArg)
+        let eventRequestFu = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
+        let eventRequestPa = NSFetchRequest<NSFetchRequestResult>(entityName: "EventEntity")
+        let pastPredicate = NSPredicate(format: "completed == %@", true as CVarArg)
         let futurePredicate = NSPredicate(format: "completed == %@", false as CVarArg)
         let dateSortDescriptor = NSSortDescriptor(key: "time", ascending: false)
-        eventRequest.predicate = futurePredicate
-        eventRequest.sortDescriptors = [dateSortDescriptor]
+        eventRequestFu.predicate = futurePredicate
+        eventRequestFu.sortDescriptors = [dateSortDescriptor]
+        eventRequestPa.predicate = pastPredicate
+        eventRequestPa.sortDescriptors = [dateSortDescriptor]
         do {
-            let results = try (context.fetch(eventRequest) as! [EventEntity])
-            sectionEvents.append(results)
+            let resultsFu = try (context.fetch(eventRequestFu) as! [EventEntity])
+            let resultsPa = try (context.fetch(eventRequestPa) as! [EventEntity])
+            sectionEvents[0] = resultsFu
+            sectionEvents[1] = resultsPa
+            //print ("-----------")
+            print ("Event entities have been reloaded")
+            self.tableView.reloadData()
+            //print(sectionEvents)
+            //print ("-----------")
         } catch {
             print("Failed to fetch events")
             print(error)
+        }
+    }
+    func attemptSave(){
+        if context.hasChanges{
+            do{
+                try context.save()
+                print ("Saved successfully using attemptSave")
+                loadEvents()
+            } catch {
+                print ("Failed to save using attemptSave")
+                print (error)
+            }
         }
     }
     
@@ -51,17 +73,26 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     // Set number of cells per section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return sectionEvents[section].count
         }
         return 3
     }
     
     // Make cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell"){
-            newCell.textLabel?.text = "At path \(indexPath)"
-            return newCell
+        if indexPath[0] == 0 {
+            if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "eventCell"){
+                let currentEntity = sectionEvents[0][indexPath[1]]
+                newCell.textLabel?.text = currentEntity.name
+                return newCell
+            }
+        } else {
+            if let newCell = self.tableView.dequeueReusableCell(withIdentifier: "completedEventCell"){
+                newCell.textLabel?.text = "At path \(indexPath)"
+                return newCell
+            }
         }
+        
         return super.tableView(tableView, cellForRowAt: indexPath)
     }
     
@@ -97,6 +128,19 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
     /**************/
     func saveEvent(sender: EditEventViewController) {
         print("saveEvent Triggered from stack, handled by delegate")
+        // If we had an original, we set current to that, if not, we make a new one
+        var currentItem:EventEntity?
+        if let _ = sender.originalEventEntity {
+            currentItem = sender.originalEventEntity!
+        } else {
+            currentItem = (NSEntityDescription.insertNewObject(forEntityName: "EventEntity", into: self.context) as! EventEntity)
+            currentItem?.completed = false
+        }
+        currentItem?.name = sender.titleLabel.text
+        currentItem?.time = sender.datePicker.date
+        currentItem?.info = sender.detailsTextView.text
+        attemptSave()
+        self.navigationController?.popViewController(animated: true)
     }
  
     func cancelEditEvent() {
