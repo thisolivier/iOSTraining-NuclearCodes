@@ -183,7 +183,10 @@ class EventsTableViewController: UITableViewController, EditEventViewDelegate {
             currentItem?.completed = false
         }
         currentItem?.name = sender.titleLabel.text
-        currentItem?.time = sender.datePicker.date
+        var calibratedDate = Calendar.current.date(bySetting: .year, value: 2012, of: sender.datePicker.date)
+        calibratedDate = Calendar.current.date(bySetting: .month, value: 12, of: calibratedDate!)
+        calibratedDate = Calendar.current.date(bySetting: .day, value: 21, of: calibratedDate!)
+        currentItem?.time = calibratedDate
         currentItem?.info = sender.detailsTextView.text
         attemptSave()
         self.navigationController?.popViewController(animated: true)
