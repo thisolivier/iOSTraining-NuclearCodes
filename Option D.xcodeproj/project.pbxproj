@@ -101,14 +101,14 @@
 		092E8AF61F72DE0D00AB6DA8 /* Option D */ = {
 			isa = PBXGroup;
 			children = (
-				092E8AF71F72DE0D00AB6DA8 /* AppDelegate.swift */,
+				092E8AFB1F72DE0D00AB6DA8 /* Main.storyboard */,
 				092E8AF91F72DE0D00AB6DA8 /* EventsTableViewController.swift */,
 				092E8B281F72E23300AB6DA8 /* EditEventViewController.swift */,
-				092E8AFB1F72DE0D00AB6DA8 /* Main.storyboard */,
 				092E8B011F72DE0D00AB6DA8 /* Assets.xcassets */,
-				092E8B031F72DE0D00AB6DA8 /* LaunchScreen.storyboard */,
-				092E8B061F72DE0D00AB6DA8 /* Info.plist */,
 				092E8AFE1F72DE0D00AB6DA8 /* Option_D.xcdatamodeld */,
+				092E8AF71F72DE0D00AB6DA8 /* AppDelegate.swift */,
+				092E8B061F72DE0D00AB6DA8 /* Info.plist */,
+				092E8B031F72DE0D00AB6DA8 /* LaunchScreen.storyboard */,
 			);
 			path = "Option D";
 			sourceTree = "<group>";
